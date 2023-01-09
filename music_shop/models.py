@@ -6,14 +6,13 @@ class Order(models.Model):
     status = models.CharField(max_length=100)
 
 
-class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
-
-
 class Item(models.Model):
-    item = models.ForeignKey(OrderItem, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
     price = models.DecimalField(decimal_places=3, max_digits=20)
 
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, default=None)
+    quantity = models.IntegerField()
